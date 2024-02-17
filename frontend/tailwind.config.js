@@ -2,7 +2,19 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#344e41",
+        background: "#fefae0",
+        secondary: "#588157",
+        tertiary: "#A3818a",
+        warning: "a3818a",
+      },
+      fontFamily: {
+        comfortaa: ["Comfortaa"],
+        open: ["Open_sans"],
+      },
+    },
   },
   plugins: [],
 };

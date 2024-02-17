@@ -1,14 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
 
+@font-face {
+  font-family: "Open_sans";
+  src: url("/fonts/Open_Sans/OpenSans-VariableFont_wght.ttf");
+  weight: 400 700;
+}
+
+@font-face {
+  font-family: "Comfortaa";
+  src: url("/fonts/Comfortaa/static/Comfortaa-Regular.ttf");
+  weight: 400;
+}
+@font-face {
+  font-family: "Comfortaa";
+  src: url("/fonts/Comfortaa/static/Comfortaa-Bold.ttf");
+  weight: 700;
+}
+
+@font-face {
+  font-family: "Open_sans";
+  src: url("/fonts/Open_Sans/static/OpenSans-Regular.ttf");
+  weight: 400;
+}
+
+@font-face {
+  font-family: "Open_sans";
+  src: url("/fonts/Open_Sans/static/OpenSans-Bold.ttf");
+  weight: 700;
+}
+
+:root {
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #344e41;
+  background-color: #fefae0;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -16,6 +42,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/*
 a {
   font-weight: 500;
   color: #646cff;
@@ -68,4 +95,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
