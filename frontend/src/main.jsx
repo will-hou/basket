@@ -8,7 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ItemList from "./views/ItemList.jsx";
 import ItemDetailView from "./views/ItemDetailView.jsx";
 import CartContext from "./contexts/CartContext.js";
-import CheckOutCard from "./components/checkOutCard.jsx";
+import CheckoutView from "./views/CheckoutView.jsx";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   },
   { path: "/items", element: <ItemList /> },
   { path: "/item_description", element: <ItemDetailView /> },
-  { path: "/checkout", element: <CheckOutCard /> },
+  { path: "/checkout", element: <CheckoutView /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

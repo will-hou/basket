@@ -1,24 +1,34 @@
 import PropTypes from "prop-types";
-export default function CheckOutCard(props) {
+export default function CheckOutCard({
+  itemName,
+  quantity,
+  farmName,
+  itemImage,
+  price,
+  numBuyers,
+  buyersThreshold,
+}) {
+  console.log(itemName);
+
   return (
-    <div className="rounded-2xl border bg-background drop-shadow-md m-2">
-      <p className="font-bold text-xl text-primary inline">{props.itemName}</p>
-      <p className="text-xl text-secondary inline"> x{props.quantity}</p>
-      <p className="text-xl text-secondary inline"> - {props.farmName} </p>
+    <div className="rounded-2xl border p-12 m-12 bg-background drop-shadow-md m-2">
+      <p className="font-bold text-xl text-primary inline">{itemName}</p>
+      <p className="text-xl text-secondary inline"> x{quantity}</p>
+      <p className="text-xl text-secondary inline"> - {farmName} </p>
       <div className="flex flex-row justify-between">
         <img
           className="h-[144px] w-[144px] rounded-[20px] padding-0"
-          src={props.itemImage}
+          src={itemImage}
         ></img>
-        <p className="text-3xl font-bold text-primary inline">${props.price}</p>
+        <p className="text-3xl font-bold text-primary inline">${price}</p>
         <div
           className={
-            "border rounded-2xl " + props.numBuyers >= props.buyersThreshold
-              ? "text-secondary border-secondar"
+            "border rounded-2xl " + numBuyers >= buyersThreshold
+              ? "text-secondary border-secondary"
               : "text-warning border-warning"
           }
         >
-          {props.numBuyers}/{props.buyersThreshold} Buyers
+          {numBuyers}/{buyersThreshold} Buyers
         </div>
       </div>
     </div>
