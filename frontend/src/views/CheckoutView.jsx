@@ -1,4 +1,4 @@
-import CheckOutCard from "../components/checkOutCard";
+import CheckOutCard from "../components/CheckOutCard";
 
 export default function CheckoutView() {
   return (
@@ -21,9 +21,7 @@ export default function CheckoutView() {
         price={2.0}
         numBuyers={2}
         buyersThreshold={5}
-      >
-        {" "}
-      </CheckOutCard>
+      ></CheckOutCard>
     </div>
   );
 }
