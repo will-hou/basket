@@ -35,6 +35,39 @@ def createuser(user: User):
     finally:
         conn.close()
 
+@app.get('/addtoorder')
+def addtoorder(email: str, itemid: int):
+    conn = connect()
+    try:
+        with conn.cursor as cur:
+            cur.execute("SELECT ARRAY_LENGTH(orders) FROM users WHERE email = %s", (email,))
+            if cur.fetchone()[0] > 0:
+                cur.execute("UPDATE order o JOIN users u ON u.orders[1] = o.id SET o.items = ARRAY_APPEND(o.items, %s) WHERE u.email = %s;", (itemid, email))
+            else:
+                pass
+    finally:
+        conn.close()
+
+@app.get('/getuser')
+def getuser(email: str = Query(...)):
+    conn = connect()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("SELECT id, email, addr, role FROM users WHERE email = %s", (email,))
+            result = {}
+            item = cur.fetchone()
+            if item:
+                return {
+                    "id": item[0],
+                    "email": item[1],
+                    "addr": item[2],
+                    "role": item[3]
+                }
+            else:
+                return {}
+    finally:
+        conn.close()
+
 @app.get('/getorder')
 def getorder(email: str = Query(...)):
     conn = connect()
@@ -54,12 +87,12 @@ def getorder(email: str = Query(...)):
 def listitems():
     conn = connect()
     with conn.cursor() as cur:
-        cur.execute('SELECT name, farm_id, price, image FROM items;')
+        cur.execute('SELECT id, name, farm_id, price, image FROM items;')
         [resultlist]
         resultlist = []
         for item in cur:
             result = {}
-            for key, val in zip(('name', 'farm_id', 'price', 'image'), item):
+            for key, val in zip(('id', 'name', 'farm_id', 'price', 'image'), item):
                 result[key] = val
             resultlist.append(result)
         conn.close()
