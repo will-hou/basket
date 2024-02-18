@@ -29,8 +29,7 @@ def get_progress():
     try:
         with conn.cursor() as cur:
             cur.execute("select count(*) as num_orders from orders")
-            conn.commit()
-        return {'cur': cur.fetchone()[0], 'threshold': 5}
+            return {'cur': cur.fetchone()[0], 'threshold': 5}
     except (DatabaseError, Exception) as err:
         print("Failed with get progress")
         print(err)
