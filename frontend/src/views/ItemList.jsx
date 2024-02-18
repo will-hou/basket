@@ -1,46 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ItemCard from "../components/ItemCard";
 import honeycomb from "../assets/honeycomb.jpeg";
 import tanaka from "../assets/tanaka.jpg";
 import { useNavigate } from "react-router-dom";
 import Basket from "../components/basket";
+import { BACKEND_HOST } from "../.config";
 
 const ItemList = () => {
   const navigate = useNavigate();
-  const [items, setItems] = useState([
-    {
-      growerImage: tanaka,
-      growerName: "Tanaka Farms",
-      itemImage: honeycomb,
-      itemName: "Honeycomb",
-      itemDescription: "Delicious honeycomb harvested from local bees.",
-      pillText: "Only 4 more people to unlock price",
-      pillWarn: false,
-      price: "$10.99",
-    },
-    {
-      growerImage: tanaka,
-      growerName: "Tanaka Farms",
-      itemImage: honeycomb,
-      itemName: "Honeycomb",
-      itemDescription: "Delicious honeycomb harvested from local bees.",
-      pillText: "Only 4 more people to unlock price",
-      pillWarn: false,
-      price: "$10.99",
-    },
-    {
-      growerImage: tanaka,
-      growerName: "Tanaka Farms",
-      itemImage: honeycomb,
-      itemName: "Honeycomb",
-      itemDescription: "Delicious honeycomb harvested from local bees.",
-      pillText: "Only 4 more people to unlock price",
-      pillWarn: false,
-      price: "$10.99",
-    },
+  const [items, setItems] = useState([]);
 
-    // Add more default items here if needed
-  ]);
+  const fetchItems = async () => {
+    const response = await fetch(BACKEND_HOST + "/listitems");
+    const data = await response.json();
+
+    const fetchedItems = []
+
+    data.map((item, index) => (
+      fetchedItems.push(<ItemCard
+        key={index} // Ideally, use a unique id instead of index when mapping over an array
+        growerImage={item.grower_image}
+        growerName={item.grower_name}
+        itemImage={item.item_image}
+        itemName={item.item_name}
+        itemDescription=""
+        pillText="placeholder"
+        pillWarn={true}
+        price={item.item_price}
+        onClick={() => {
+          itemCardClickHandler(item);
+        }}
+      />)
+    ))
+
+    setItems(fetchedItems);
+    console.log("Items: ", data);
+    console.log(items)
+  }
+
+  useEffect(() => {
+    fetchItems();
+  }, []);
 
   const itemCardClickHandler = (item) => {
     console.log("Item Clicked: ", item);
@@ -72,22 +72,7 @@ const ItemList = () => {
           </button>
         </div>
       </div>
-      {items.map((item, index) => (
-        <ItemCard
-          key={index} // Ideally, use a unique id instead of index when mapping over an array
-          growerImage={item.growerImage}
-          growerName={item.growerName}
-          itemImage={item.itemImage}
-          itemName={item.itemName}
-          itemDescription={item.itemDescription}
-          pillText={item.pillText}
-          pillWarn={item.pillWarn}
-          price={item.price}
-          onClick={() => {
-            itemCardClickHandler(item);
-          }}
-        />
-      ))}
+      {items}
     </div>
   );
 };
