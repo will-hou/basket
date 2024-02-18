@@ -1,33 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { motion } from "framer-motion";
 
 const ProgressBar = (props) => {
+  const [animate, setAnimate] = useState(false);
 
+  const startingSavingsWidth = props.curSavings * props.width;
+  const newSavingsWidth = props.newSavings * props.width;
 
-        const startingSavingsWidth = props.curSavings * props.width
-        const newSavingsWidth = props.newSavings * props.width
-        
-        console.log(startingSavingsWidth, newSavingsWidth, props.width, props.curSavings, props.newSavings)
-        return (
-            <div className="progress-bar grid">
-                <div className='z-50 border-black border-2 col-start-1 row-start-1 rounded-full'
-                style={{ width: `${props.width}px` }}>
+  // Trigger the animation on mount
+  useEffect(() => {
+    setAnimate(true);
+  }, []);
 
-                </div>
+  const variants = {
+    hidden: { width: 0, opacity: 0 },
+    visible: (custom) => ({ width: custom, opacity: 1 }),
+  };
 
-                <div className='z-20 h-[20px] bg-primary col-start-1 row-start-1 rounded-full'
-                style={{ width: `${startingSavingsWidth}px` }}>
+  return (
+    <div className="progress-bar grid relative">
+      {/* Static background div */}
+      <div
+        className="z-50 border-black border-2 col-start-1 row-start-1 rounded-full"
+        style={{ width: `${props.width}px` }}
+      />
 
-                </div>
+      {/* First bar with slide-in animation */}
+      <motion.div
+        className="z-20 h-[20px] bg-primary col-start-1 row-start-1 rounded-full"
+        initial="hidden"
+        animate="visible"
+        variants={variants}
+        custom={startingSavingsWidth}
+        transition={{ duration: 1, ease: "easeInOut"}}  // You can customize the transition duration and other properties
+      />
 
-                <div className=' z-10 h-[20px] bg-tertiary col-start-1 row-start-1 rounded-full'
-                style={{ width: `${newSavingsWidth}px` }}>
-
-                </div>
-
-                {/* Border  */}
-            </div>
-        );
-    }
-
+      {/* Second bar with delayed slide-in animation */}
+      <motion.div
+        className="z-10 h-[20px] bg-tertiary col-start-1 row-start-1 rounded-full"
+        initial="hidden"
+        animate="visible"
+        variants={variants}
+        custom={newSavingsWidth}
+        transition={{ duration: 1, delay: 1, ease: "easeInOut" }}  // You can customize the transition duration and other properties
+      />
+    </div>
+  );
+};
 
 export default ProgressBar;
