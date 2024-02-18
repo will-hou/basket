@@ -37,7 +37,7 @@ export default function Auth() {
       getEmail(codeResponse.access_token);
 
       // set the user email to codeResponse.email
-      fetch(BACKEND_HOST + "/create_user", {
+      fetch(BACKEND_HOST + "/createuser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -45,8 +45,8 @@ export default function Auth() {
         body: JSON.stringify({
           email: userEmail,
           addr: userAddress,
-          role: authType,
-          formID: authType === "farmer" ? "f" : "b",
+          role: authType === "farmer" ? "f" : "b",
+          farmId: 0,
         }),
       })
         .then((response) => response.json())
@@ -62,6 +62,7 @@ export default function Auth() {
   const onLoginClick = () => {
     setAuthType("login");
     login();
+    navigate("/items");
   };
 
   const onFarmerSignUpClick = () => {
@@ -83,42 +84,60 @@ export default function Auth() {
   return (
     <>
       {showModal && (
-        <div>
-          <label>
-            Address:
+        <div className="fixed z-10 text-center left-[-41px] top-[-257px] h-screen w-screen bg-black/70">
+          <div className="flex flex-col mx-auto mt-36 border rounded-2xl h-[60%] w-[60%] bg-background">
+            <div className="text-3xl font-bold w-[75%] mx-auto mt-4 mb-6">
+              Enter your address to continue
+            </div>
+            <label className="text-black/40 text-lg">Address:</label>
             <input
+              className="w-[80%] mx-auto border-2 border-black/20 rounded-2xl h-10 px-5 pr-16 text-sm text-background focus:outline-none"
               type="text"
               value={userAddress}
               onChange={(e) => setUserAddress(e.target.value)}
             />
-          </label>
-          <button onClick={onModalSubmit}>Submit</button>
+            <button
+              onClick={onModalSubmit}
+              className="mt-8 mx-auto w-[80%] bg-primary active:bg-primary/80 text-white py-2 text-lg rounded-2xl"
+            >
+              Submit
+            </button>
+          </div>
         </div>
       )}
-      <div className=" mb-4">Existing Users</div>
-      <button
-        onClick={onLoginClick}
-        className="bg-primary font-body text-lg text-white active:bg-primary/80 px-4 py-2 rounded-2xl"
+      <div
+        className={showModal ? "opacity-30" : ""}
+        // onClick={(event) => {
+        //   if (event.target === event.currentTarget) {
+        //     setShowModal(false);
+        //   }
+        // }}
       >
-        Log In
-      </button>
-      <div className=" mt-8">Create an Account</div>
-      <div className=" mb-4 text-base text-black/30">
-        Select an account type
-      </div>
-      <div className="flex flex-row">
+        <div className=" mb-4">Existing Users</div>
         <button
-          onClick={onFarmerSignUpClick}
-          className="inline-block border text-lg flex-1 border-secondary font-body text-secondary active:bg-secondary/10 px-4 py-2 mr-1 rounded-2xl"
+          onClick={onLoginClick}
+          className="bg-primary font-body text-lg text-white active:bg-primary/80 px-4 py-2 rounded-2xl"
         >
-          Farmer
+          Log In
         </button>
-        <button
-          onClick={onShopperSignUpClick}
-          className="inline-block border text-lg flex-1 border-secondary font-body text-secondary active:bg-secondary/10 px-4 py-2 ml-1 rounded-2xl"
-        >
-          Shopper
-        </button>
+        <div className=" mt-8">Create an Account</div>
+        <div className=" mb-4 text-base text-black/30">
+          Select an account type
+        </div>
+        <div className="flex flex-row">
+          <button
+            onClick={onFarmerSignUpClick}
+            className="inline-block border text-lg flex-1 border-secondary font-body text-secondary active:bg-secondary/10 px-4 py-2 mr-1 rounded-2xl"
+          >
+            Farmer
+          </button>
+          <button
+            onClick={onShopperSignUpClick}
+            className="inline-block border text-lg flex-1 border-secondary font-body text-secondary active:bg-secondary/10 px-4 py-2 ml-1 rounded-2xl"
+          >
+            Shopper
+          </button>
+        </div>
       </div>
     </>
   );
