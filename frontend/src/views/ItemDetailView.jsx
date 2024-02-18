@@ -3,13 +3,35 @@ import ProgressBar from "../components/ProgressBar";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import CartContext from "../contexts/CartContext";
+import { BACKEND_HOST } from "../.config";
+
 
 const ItemDetailView = (props) => {
   const [startingProgress, setStartingProgress] = useState(0.5);
   const [newProgress, setNewProgress] = useState(0.66);
+
+  const [cur, setCur] = useState(0);
+  const [prev, setPrev] = useState(0);
+
+
   const navigate = useNavigate();
   const { cart } = React.useContext(CartContext);
   const { state } = useLocation();
+
+  const getProgress = async () => {
+
+    fetch(BACKEND_HOST + "/getprogress")
+      .then((response) => response.json())
+      .then((data) => {
+        // Update the progress state based on the API response
+        console.log(data.cur)
+        setCur(data.cur / data.threshold)
+        setPrev((data.cur - 1) / data.threshold)
+      })
+      .catch((error) => {
+        console.error("Error fetching progress:", error);
+      });
+  }
 
   const addToCart = (item) => {
     cart.add(item);
@@ -42,7 +64,7 @@ const ItemDetailView = (props) => {
         Adding to your basket gets the community once step closer to unlocking
         the deal!
       </p>
-      <ProgressBar width={250} cur={startingProgress} new={newProgress} />
+      <ProgressBar width={250} cur={prev} new={cur} />
       <p>The deal gets even better as more people buy!</p>
       <button
         onClick={() => addToCart(state.itemName)}
