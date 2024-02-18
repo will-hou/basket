@@ -3,32 +3,71 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "Open_sans";
-  src: url("/fonts/Open_Sans/OpenSans-VariableFont_wght.ttf");
-  weight: 400 700;
+  font-family: "Comfortaa";
+  src: url("/fonts/Comfortaa/static/Comfortaa-Regular.ttf") format("truetype");
+  font-weight: 400;
 }
 
 @font-face {
   font-family: "Comfortaa";
-  src: url("/fonts/Comfortaa/static/Comfortaa-Regular.ttf");
-  weight: 400;
+  src: url("/fonts/Comfortaa/static/Comfortaa-Light.ttf") format("truetype");
+  font-weight: 300;
 }
+
 @font-face {
   font-family: "Comfortaa";
-  src: url("/fonts/Comfortaa/static/Comfortaa-Bold.ttf");
+  src: url("/fonts/Comfortaa/static/Comfortaa-medium.ttf") format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Comfortaa";
+  src: url("/fonts/Comfortaa/static/Comfortaa-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Comfortaa";
+  src: url("/fonts/Comfortaa/static/Comfortaa-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Open_sans";
+  src: url("/fonts/Open_Sans/static/OpenSans-LightItalic.ttf")
+    format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Open_sans";
+  src: url("/fonts/Open_Sans/static/OpenSans-Light.ttf") format("truetype");
+  weight: 300;
+}
+
+@font-face {
+  font-family: "Open_sans";
+  src: url("/fonts/Open_Sans/static/OpenSans-Bold.ttf") format("truetype");
   weight: 700;
 }
 
 @font-face {
   font-family: "Open_sans";
-  src: url("/fonts/Open_Sans/static/OpenSans-Regular.ttf");
-  weight: 400;
+  src: url("/fonts/Open_Sans/static/OpenSans-ExtraBold.ttf") format("truetype");
+  weight: 800;
 }
 
 @font-face {
   font-family: "Open_sans";
-  src: url("/fonts/Open_Sans/static/OpenSans-Bold.ttf");
-  weight: 700;
+  src: url("/fonts/Open_Sans/static/OpenSans-SemiBold.ttf") format("truetype");
+  weight: 600;
+}
+
+@font-face {
+  font-family: "Open_sans";
+  src: url("/fonts/Open_Sans/static/OpenSans-Regular.ttf") format("truetype");
+  weight: 400;
 }
 
 :root {

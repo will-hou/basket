@@ -11,8 +11,8 @@ export default {
         warning: "a3818a",
       },
       fontFamily: {
-        comfortaa: ["Comfortaa"],
-        open: ["Open_sans"],
+        display: ["Comfortaa"],
+        body: ["Open_sans"],
       },
     },
   },
