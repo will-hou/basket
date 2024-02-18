@@ -7,6 +7,7 @@ import { CLIENT_ID } from "./.config.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ItemList from "./views/ItemList.jsx";
 import ItemDetailView from "./views/ItemDetailView.jsx";
+import CartContext from "./contexts/CartContext.js";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <GoogleOAuthProvider clientId={CLIENT_ID}>
-      <RouterProvider router={router} />
+      <CartContext.Provider value={{ cart: new Set() }}>
+        <RouterProvider router={router} />
+      </CartContext.Provider>
     </GoogleOAuthProvider>
   </React.StrictMode>
 );

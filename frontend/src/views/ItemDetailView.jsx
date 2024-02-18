@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProgressBar from "../components/ProgressBar";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import CartContext from "../contexts/CartContext";
 
 const ItemDetailView = (props) => {
   const [startingProgress, setStartingProgress] = useState(0.5);
   const [newProgress, setNewProgress] = useState(0.66);
-
+  const navigate = useNavigate();
+  const { cart } = React.useContext(CartContext);
   const { state } = useLocation();
 
-  console.log("Item desc", props);
+  const addToCart = (item) => {
+    cart.add(item);
+  };
+
+  const backButtonHandler = () => {
+    navigate(-1);
+  };
+
+  useEffect(() => {
+    setStartingProgress(cart.has(state.itemName) ? newProgress : 0.5);
+  }, [state, cart]);
 
   return (
     <div className="flex flex-col items-center text-center gap-4 p-5">
@@ -32,8 +44,17 @@ const ItemDetailView = (props) => {
       </p>
       <ProgressBar width={250} cur={startingProgress} new={newProgress} />
       <p>The deal gets even better as more people buy!</p>
-      <button className="inline-block border text-lg flex-1 bg-warning border-warning font-body text-white active:bg-secondary/10 px-4 py-2 ml-1 rounded-[10px]">
+      <button
+        onClick={() => addToCart(state.itemName)}
+        className="inline-block border text-lg flex-1 bg-warning border-warning font-body text-white active:bg-secondary/10 px-4 py-2 ml-1 rounded-[10px]"
+      >
         Add to Basket
+      </button>
+      <button
+        className="inline-block text-lg opacity-80 active:opacity-80"
+        onClick={backButtonHandler}
+      >
+        &#8592; Back
       </button>
     </div>
   );

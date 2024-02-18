@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import ItemCard from "../components/ItemCard";
 import honeycomb from "../assets/honeycomb.jpeg";
 import tanaka from "../assets/tanaka.jpg";
-import basket from "../assets/basket_logo_with_text.png";
 import { useNavigate } from "react-router-dom";
+import Basket from "../components/basket";
 
 const ItemList = () => {
   const navigate = useNavigate();
@@ -18,6 +18,27 @@ const ItemList = () => {
       pillWarn: false,
       price: "$10.99",
     },
+    {
+      growerImage: tanaka,
+      growerName: "Tanaka Farms",
+      itemImage: honeycomb,
+      itemName: "Honeycomb",
+      itemDescription: "Delicious honeycomb harvested from local bees.",
+      pillText: "Only 4 more people to unlock price",
+      pillWarn: false,
+      price: "$10.99",
+    },
+    {
+      growerImage: tanaka,
+      growerName: "Tanaka Farms",
+      itemImage: honeycomb,
+      itemName: "Honeycomb",
+      itemDescription: "Delicious honeycomb harvested from local bees.",
+      pillText: "Only 4 more people to unlock price",
+      pillWarn: false,
+      price: "$10.99",
+    },
+
     // Add more default items here if needed
   ]);
 
@@ -29,7 +50,8 @@ const ItemList = () => {
   return (
     <div className="flex items-center flex-col gap-8 py-5">
       <div className="flex flex-col items-center">
-        <img className="w-20" src={basket} alt="Basket Logo"></img>
+        <Basket size="40" />
+        {/* <img className="w-20" src={basket} alt="Basket Logo"></img> */}
         <div className="pt-2 relative mx-auto text-gray-600">
           <input
             className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"

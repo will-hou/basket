@@ -86,7 +86,7 @@ export default function Auth() {
       {showModal && (
         <div className="fixed z-10 text-center left-[-41px] top-[-257px] h-screen w-screen bg-black/70">
           <div className="flex flex-col mx-auto mt-36 border rounded-2xl h-[60%] w-[60%] bg-background">
-            <div className="text-3xl font-bold w-[75%] mx-auto mt-4 mb-6">
+            <div className="text-xl font-bold w-[80%] mx-auto mt-4 mb-6">
               Enter your address to continue
             </div>
             <label className="text-black/40 text-lg">Address:</label>
@@ -101,6 +101,14 @@ export default function Auth() {
               className="mt-8 mx-auto w-[80%] bg-primary active:bg-primary/80 text-white py-2 text-lg rounded-2xl"
             >
               Submit
+            </button>
+            <button
+              className="text-base test-primary/50 mt-4"
+              onClick={() => {
+                setShowModal(false);
+              }}
+            >
+              {"\u2190"} Back
             </button>
           </div>
         </div>
