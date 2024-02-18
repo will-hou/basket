@@ -14,7 +14,7 @@ const ItemList = () => {
     const response = await fetch(BACKEND_HOST + "/listitems");
     const data = await response.json();
 
-    const fetchedItems = []
+    const fetchedItems = [];
 
     data.map((item, index) => (
       fetchedItems.push(<ItemCard
@@ -35,8 +35,8 @@ const ItemList = () => {
 
     setItems(fetchedItems);
     console.log("Items: ", data);
-    console.log(items)
-  }
+    console.log(items);
+  };
 
   useEffect(() => {
     fetchItems();
@@ -47,10 +47,17 @@ const ItemList = () => {
     navigate("/item_description", { state: { ...item } });
   };
 
+  const basketClickHandler = () => {
+    navigate("/checkout");
+  };
+
   return (
     <div className="flex items-center flex-col gap-8 py-5">
       <div className="flex flex-col items-center">
-        <Basket size="40" />
+        <div className="cursor-pointer " onClick={basketClickHandler}>
+          <Basket size="40" />
+        </div>
+
         {/* <img className="w-20" src={basket} alt="Basket Logo"></img> */}
         <div className="pt-2 relative mx-auto text-gray-600">
           <input
