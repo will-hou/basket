@@ -42,7 +42,7 @@ def root():
 def rootindex():
     return FileResponse('../frontend/dist/index.html')
 
-app.mount("/", StaticFiles(directory="../frontend/dist"), name="site")
+# app.mount("/", StaticFiles(directory="../frontend/dist"), name="site")
 
 if __name__ == 'main':
     load_dotenv()
