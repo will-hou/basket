@@ -9,6 +9,7 @@ import ItemList from "./views/ItemList.jsx";
 import ItemDetailView from "./views/ItemDetailView.jsx";
 import CartContext from "./contexts/CartContext.js";
 import CheckoutView from "./views/CheckoutView.jsx";
+import ConfirmationView from "./views/ConfirmationView.jsx";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
   { path: "/items", element: <ItemList /> },
   { path: "/item_description", element: <ItemDetailView /> },
   { path: "/checkout", element: <CheckoutView /> },
+  { path: "/confirmation", element: <ConfirmationView /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
