@@ -1,6 +1,8 @@
 import CheckOutCard from "../components/CheckOutCard";
+import { useNavigate } from "react-router-dom";
 
 export default function CheckoutView() {
+  const navigate = useNavigate();
   return (
     <div className="font-body">
       <h1 className="text-center text-6xl font-display text-primary m-8">
@@ -24,7 +26,10 @@ export default function CheckoutView() {
         numBuyers={7}
         buyersThreshold={5}
       ></CheckOutCard>
-      <button className="fixed bottom-8 left-[25%] w-[50%] rounded-2xl text-xl font-body bg-primary active:bg-primary/80 text-white py-4">
+      <button
+        onClick={() => navigate("/confirmation")}
+        className="fixed bottom-8 left-[25%] w-[50%] rounded-2xl text-xl font-body bg-primary active:bg-primary/80 text-white py-4"
+      >
         Checkout
       </button>
     </div>
