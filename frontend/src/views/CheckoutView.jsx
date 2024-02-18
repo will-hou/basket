@@ -1,4 +1,4 @@
-import CheckOutCard from "../components/checkOutCard";
+import CheckOutCard from "../components/CheckOutCard";
 
 export default function CheckoutView() {
   return (

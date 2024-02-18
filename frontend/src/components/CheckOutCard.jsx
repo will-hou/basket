@@ -11,7 +11,7 @@ export default function CheckOutCard({
   console.log(itemName);
 
   return (
-    <div className="rounded-2xl border p-12 bg-background drop-shadow-md m-2">
+    <div className="rounded-2xl border p-12 bg-background drop-shadow-md">
       <p className="font-bold text-xl text-primary inline">{itemName}</p>
       <p className="text-xl text-secondary inline"> x{quantity}</p>
       <p className="text-xl text-secondary inline"> - {farmName} </p>
