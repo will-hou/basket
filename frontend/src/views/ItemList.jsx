@@ -14,7 +14,7 @@ const ItemList = () => {
             itemDescription: 'Delicious honeycomb harvested from local bees.',
             pillText: 'Only 4 more people to unlock price',
             pillWarn: false,
-            price: 10.99,
+            price: '$10.99',
         },
         // Add more default items here if needed
     ]);
