@@ -22,7 +22,6 @@ class User(BaseModel):
     email: str
     addr: str
     role: str # does this work?
-    farm_id: int | None = None
 
 @app.post('/deletefulldb')
 def deletefulldb():
@@ -33,8 +32,8 @@ def createuser(user: User):
     conn = connect()
     try:
         with conn.cursor() as cur:
-            cur.execute("INSERT INTO users (email, addr, role, farm_id) VALUES (%s, %s, %s, %s);",
-                        (user.email, user.addr, user.role, user.farm_id))
+            cur.execute("INSERT INTO users (email, addr, role) VALUES (%s, %s, %s);",
+                        (user.email, user.addr, user.role))
             conn.commit()
         return "Success"
     except (DatabaseError, Exception) as err:
