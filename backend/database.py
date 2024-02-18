@@ -30,27 +30,10 @@ def create_tables_if_needed(conn):
                 CREATE TABLE users (
                     id SERIAL PRIMARY KEY,
                     email VARCHAR(320),
-                    role CHARACTER[1]
-                );
-                """)
-            if not "orders" in tablenames:
-                print("Creating orders table")
-                cur.execute("""
-                CREATE TABLE orders (
-                    id SERIAL PRIMARY KEY,
-                    owner INTEGER REFERENCES users(id),
-                    items INTEGER[]
-                );
-                """)
-            if not "items" in tablenames:
-                print("Creating items table")
-                cur.execute("""
-                CREATE TABLE items (
-                id SERIAL PRIMARY KEY,
-                farm_id INTEGER,
-                name VARCHAR(255),
-                price MONEY,
-                image VARCHAR(511)
+                    addr VARCHAR(500),
+                    role CHARACTER,
+                    orders INTEGER[],
+                    farm_id INTEGER
                 );
                 """)
             if not "farms" in tablenames:
@@ -59,13 +42,49 @@ def create_tables_if_needed(conn):
                 CREATE TABLE farms (
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(255),
+                description VARCHAR(2000),
                 image VARCHAR(511),
-                owner_id INTEGER REFERENCES users(id)
-            );
-            """)
-            cur.execute("ALTER TABLE items ADD FOREIGN KEY (farm_id) REFERENCES farms(id);")
+                owner_id INTEGER REFERENCES users(id),
+                items INTEGER[],
+                orders INTEGER[]
+                );
+                """)
+            if not "items" in tablenames:
+                print("Creating items table")
+                cur.execute("""
+                CREATE TABLE items (
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(255),
+                farm_id INTEGER REFERENCES farms(id),
+                price MONEY,
+                image VARCHAR(511)
+                );
+                """)
+            if not "orders" in tablenames:
+                print("Creating orders table")
+                cur.execute("""
+                CREATE TABLE orders (
+                id SERIAL PRIMARY KEY,
+                owner INTEGER REFERENCES users(id),
+                items INTEGER[]
+                );
+                """)
 
             conn.commit()
+            #cur.execute("ALTER TABLE users ADD FOREIGN KEY (orders) REFERENCES orders(id);")
+            #cur.execute("ALTER TABLE farms ADD FOREIGN KEY (items) REFERENCES items(id);")
+            
+
         except (psycopg2.DatabaseError, Exception) as err:
                 print("Error while creating tables")
                 print(err)
+
+def deletefulldb():
+    conn = connect()
+    with conn.cursor() as cur:
+        cur.execute("DROP TABLE farms CASCADE;")
+        cur.execute("DROP TABLE items CASCADE;")
+        cur.execute("DROP TABLE orders CASCADE;")
+        cur.execute("DROP TABLE users CASCADE;")
+        conn.commit()
+    conn.close()
