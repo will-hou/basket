@@ -2,7 +2,7 @@ import React from 'react';
 
 const ItemCard = (props) => {
 
-  const pillClasses = `border-2 rounded-full px-2 text-[12px] ${
+  const pillClasses = `border-2 rounded-full px-3 py-1 text-[12px] ${
     props.pillWarn ? 'border-warning' : 'border-tertiary'
   }`;
 
@@ -10,12 +10,12 @@ const ItemCard = (props) => {
     <div className='p-3 min-h-[200px] gap-3 border-black border-2 rounded-[20px] flex flex-row justify-center items-center max-w-[95vw] shadow-lg'>
       <img className='h-[144px] w-[144px] rounded-[20px] padding-0' src={props.itemImage}></img>
       <div className='flex flex-col gap-2'>
-        <h2 className='font-display justify-start font-bold '>{props.itemName}</h2>
-        <p className='font-body'>{props.itemDescription}</p>
+        <h2 className='font-display justify-start font-bold text-[24px]'>{props.itemName}</h2>
+        <p className='font-body text-[12px] '>{props.itemDescription}</p>
         <div className='flex flex-row gap-2'>
 
-          <img className='rounded-full w-8 h-8' src={props.growerImage}></img>
-          <p className='inline-block'>{props.growerName}</p>
+          <img className='rounded-full w-6 h-6' src={props.growerImage}></img>
+          <p className='inline-block text-[14px]'>{props.growerName}</p>
 
         </div>
         <p className={pillClasses}>{props.pillText}</p>
