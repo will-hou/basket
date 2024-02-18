@@ -58,6 +58,24 @@ def createuser(user: User):
     finally:
         conn.close()
 
+class Order(BaseModel):
+    item: int
+    order: int
+    items: str
+
+@app.post('/addorder')
+def addorder(o: Order):
+    conn = connect()
+    try:
+        with conn.cursor as cur:
+            cur.execute("INSERT INTO orders (item, owner, items) VALUES (%s, %s, {%s});", (o.item, o.order, o.items))
+    except (DatabaseError, Exception) as err:
+        print("Error adding order to db")
+        print(err)
+        raise HTTPException(status_code=500, detail="Failed to add order to db")
+    conn.close()
+    
+    
 @app.get('/addtoorder')
 def addtoorder(email: str, itemid: int):
     conn = connect()
