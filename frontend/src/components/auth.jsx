@@ -43,7 +43,7 @@ export default function Auth() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: codeResponse.email,
+          email: userEmail,
           addr: userAddress,
           role: authType,
           formID: authType === "farmer" ? "f" : "b",
