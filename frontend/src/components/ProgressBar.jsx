@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 const ProgressBar = (props) => {
   const [animate, setAnimate] = useState(false);
 
-  const startingSavingsWidth = props.curSavings * props.width;
-  const newSavingsWidth = props.newSavings * props.width;
+  const startingWidth = props.cur * props.width;
+  const newWidth = props.new * props.width;
 
   // Trigger the animation on mount
   useEffect(() => {
@@ -31,7 +31,7 @@ const ProgressBar = (props) => {
         initial="hidden"
         animate="visible"
         variants={variants}
-        custom={startingSavingsWidth}
+        custom={startingWidth}
         transition={{ duration: 1, ease: "easeInOut"}}  // You can customize the transition duration and other properties
       />
 
@@ -41,7 +41,7 @@ const ProgressBar = (props) => {
         initial="hidden"
         animate="visible"
         variants={variants}
-        custom={newSavingsWidth}
+        custom={newWidth}
         transition={{ duration: 1, delay: 1, ease: "easeInOut" }}  // You can customize the transition duration and other properties
       />
     </div>
