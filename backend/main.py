@@ -23,6 +23,22 @@ class User(BaseModel):
     addr: str
     role: str # does this work?
 
+@app.get('/getprogress')
+def get_progress():
+    conn = connect()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("select count(*) as num_orders from orders")
+            conn.commit()
+        return {'cur': cur.fetchone()[0], 'threshold': 5}
+    except (DatabaseError, Exception) as err:
+        print("Failed with get progress")
+        print(err)
+        raise HTTPException(status_code=500, detail="Failed with get progress")
+    finally:
+        conn.close()
+
+
 @app.post('/deletefulldb')
 def deletefulldb():
     deletefulldb()
