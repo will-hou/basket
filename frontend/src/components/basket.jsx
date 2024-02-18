@@ -40,5 +40,5 @@ export default function Basket({ size }) {
 }
 
 Basket.propTypes = {
-  size: PropTypes.number,
+  size: PropTypes.string,
 };
