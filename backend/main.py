@@ -88,7 +88,6 @@ def listitems():
     conn = connect()
     with conn.cursor() as cur:
         cur.execute('SELECT id, name, farm_id, price, image FROM items;')
-        [resultlist]
         resultlist = []
         for item in cur:
             result = {}
