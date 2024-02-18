@@ -32,10 +32,10 @@ const ItemDetailView = (props) => {
       <h1 className="font-display text-[32px] font-bold ">{state.itemName}</h1>
       <p className="font-body">{state.itemDescription}</p>
       <div className="p-5 items-center min-w-[80vw] max-w-[90vw] flex flex-row gap-5 border-black border-2 rounded-xl">
-        <img src={state.growerImage} className="w-20 h-20 rounded-full"></img>
+        <img src={state.farmImage} className="w-20 h-20 rounded-full"></img>
         <div className="flex flex-col items-start text-start">
-          <p className="font-display font-bold">{state.growerName}</p>
-          <p className="font-body">{state.growerDescription}</p>
+          <p className="font-display font-bold">{state.farmName}</p>
+          <p className="font-body">{state.farmDescription}</p>
         </div>
       </div>
       <p>
