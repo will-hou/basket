@@ -99,7 +99,7 @@ def listitems():
         resultlist = []
         for item in cur:
             result = {}
-            for key, val in zip(('item_id', 'farm_id', 'item_name', 'item_price', 'item_image', 'farm_name', 'farm_image', 'seller'), item):
+            for key, val in zip(('itemId', 'farmId', 'itemName', 'itemPrice', 'itemImage', 'farmName', 'farmImage', 'seller'), item):
                 result[key] = val
             resultlist.append(result)
         conn.close()

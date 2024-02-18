@@ -19,14 +19,14 @@ const ItemList = () => {
     data.map((item, index) => (
       fetchedItems.push(<ItemCard
         key={index} // Ideally, use a unique id instead of index when mapping over an array
-        growerImage={item.grower_image}
-        growerName={item.grower_name}
-        itemImage={item.item_image}
-        itemName={item.item_name}
+        growerImage={item.growerImage}
+        growerName={item.growerName}
+        itemImage={item.itemImage}
+        itemName={item.item_Name}
         itemDescription=""
         pillText="placeholder"
         pillWarn={true}
-        price={item.item_price}
+        price={item.itemPrice}
         onClick={() => {
           itemCardClickHandler(item);
         }}
