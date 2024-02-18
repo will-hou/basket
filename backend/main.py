@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Query, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from psycopg2 import DatabaseError
 
@@ -8,6 +9,14 @@ from dotenv import load_dotenv
 from database import connect, create_tables_if_needed, deletefulldb
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class User(BaseModel):
     email: str
@@ -101,7 +110,7 @@ class Item(BaseModel):
     name: str
     farm_id: int | None = None
     price: float
-    image: str
+    image: str | None = None
 
 @app.post('/createitem')
 def additem(item: Item):
