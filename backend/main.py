@@ -1,39 +1,94 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
+from psycopg2 import DatabaseError
 
 from dotenv import load_dotenv
-from database import connect, create_tables_if_needed
+from database import connect, create_tables_if_needed, deletefulldb
 
 app = FastAPI()
+
+class User(BaseModel):
+    email: str
+    addr: str
+    role: str # does this work?
+    farm_id: int | None = None
+
+@app.post('/deletefulldb')
+def deletefulldb():
+    deletefulldb()
+
+@app.post('/createuser')
+def createuser(user: User):
+    conn = connect()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("INSERT INTO users (email, addr, role, farm_id) VALUES (%s, %s, %s, %s);",
+                        (user.email, user.addr, user.role, user.farm_id))
+            conn.commit()
+        return "Success"
+    except (DatabaseError, Exception) as err:
+        print("Error adding user to databse")
+        print(err)
+        raise HTTPException(status_code=500, detail="Failed to add user to db")
+    finally:
+        conn.close()
+
+@app.get('/getorder')
+def getorder(email: str = Query(...)):
+    conn = connect()
+
+    with conn.cursor() as cur:
+        cur.execute("""
+        select * from items where id in (
+        select unnest(o.items)
+        from users u JOIN orders o ON u.id = o.owner
+        WHERE u.email = %s);
+        """, (email,))
+        result = cur.fetchall()
+    conn.close()
+    return result
 
 @app.get('/listitems')
 def listitems():
     conn = connect()
     with conn.cursor() as cur:
-        cur.execute('SELECT name, farm_id, price FROM items;')
-        result = cur.fetchall()
-        print(result)
+        cur.execute('SELECT name, farm_id, price, image FROM items;')
+        [resultlist]
+        resultlist = []
+        for item in cur:
+            result = {}
+            for key, val in zip(('name', 'farm_id', 'price', 'image'), item):
+                result[key] = val
+            resultlist.append(result)
         conn.close()
-        return result
+        return resultlist
 
 class Item(BaseModel):
     name: str
     farm_id: int | None = None
     price: float
-    
+    image: str
+
 @app.post('/createitem')
 def additem(item: Item):
     conn = connect()
-    with conn.cursor() as cur:
-        cur.execute(
-            'INSERT INTO items (name, farm_id, price) VALUES (%s, %s, %s)',
-            (item.name, item.farm_id, item.price))
-        conn.commit()
-        conn.close()
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                'INSERT INTO items (name, farm_id, price) VALUES (%s, %s, %s);',
+                (item.name, item.farm_id, item.price))
+            conn.commit()
         return "Success"
-    
+    except (DatabaseError, Exception) as err:
+        print("Error adding item to db")
+        print(err)
+        raise HTTPException(status_code=500, detail="Failed to add item to db")
+    finally:
+        conn.close()
+
+
 @app.get('/testpoint')
 def root():
     return {"message": "Hello World"}
