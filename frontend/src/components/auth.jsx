@@ -1,20 +1,61 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BACKEND_HOST } from "../.config.js";
 
 export default function Auth() {
   const [authType, setAuthType] = useState("");
-  const { userEmail, setUserEmail } = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userAddress, setUserAddress] = useState("");
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+
+  const getEmail = async (accessToken) => {
+    console.log("Access Token: ", accessToken);
+    fetch("https://www.googleapis.com/oauth2/v2/userinfo", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data); // The full user profile information
+        setUserEmail(data.email);
+      })
+      .catch((error) =>
+        console.error("Error fetching user information:", error)
+      );
+  };
 
   const login = useGoogleLogin({
+    isSignedIn: true,
+    accessType: "offline",
+    scope: "email profile",
     onSuccess: (codeResponse) => {
-      console.log("Auth Type: ", authType);
-      console.log("Code Response: ", codeResponse);
-      console.log("Component: Auth");
+      getEmail(codeResponse.access_token);
+
       // set the user email to codeResponse.email
-      setUserEmail(codeResponse.email);
-      console.log("User Email: ", userEmail);
+      fetch(BACKEND_HOST + "/create_user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: codeResponse.email,
+          addr: userAddress,
+          role: authType,
+          formID: authType === "farmer" ? "f" : "b",
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     },
   });
 
@@ -30,12 +71,30 @@ export default function Auth() {
 
   const onShopperSignUpClick = () => {
     setAuthType("shopper");
+    setShowModal(true);
+  };
+
+  const onModalSubmit = () => {
+    setShowModal(false);
     login();
     navigate("/items");
   };
 
   return (
     <>
+      {showModal && (
+        <div>
+          <label>
+            Address:
+            <input
+              type="text"
+              value={userAddress}
+              onChange={(e) => setUserAddress(e.target.value)}
+            />
+          </label>
+          <button onClick={onModalSubmit}>Submit</button>
+        </div>
+      )}
       <div className=" mb-4">Existing Users</div>
       <button
         onClick={onLoginClick}
