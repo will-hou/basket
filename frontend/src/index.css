@@ -34,40 +34,32 @@
 
 @font-face {
   font-family: "Open_sans";
-  src: url("/fonts/Open_Sans/static/OpenSans-LightItalic.ttf")
-    format("truetype");
-  font-weight: 300;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Open_sans";
   src: url("/fonts/Open_Sans/static/OpenSans-Light.ttf") format("truetype");
-  weight: 300;
+  font-weight: 300;
 }
 
 @font-face {
   font-family: "Open_sans";
   src: url("/fonts/Open_Sans/static/OpenSans-Bold.ttf") format("truetype");
-  weight: 700;
+  font-weight: 700;
 }
 
 @font-face {
   font-family: "Open_sans";
   src: url("/fonts/Open_Sans/static/OpenSans-ExtraBold.ttf") format("truetype");
-  weight: 800;
+  font-weight: 800;
 }
 
 @font-face {
   font-family: "Open_sans";
   src: url("/fonts/Open_Sans/static/OpenSans-SemiBold.ttf") format("truetype");
-  weight: 600;
+  font-weight: 600;
 }
 
 @font-face {
   font-family: "Open_sans";
   src: url("/fonts/Open_Sans/static/OpenSans-Regular.ttf") format("truetype");
-  weight: 400;
+  font-weight: 400;
 }
 
 :root {
