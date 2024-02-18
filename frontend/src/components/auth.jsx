@@ -1,9 +1,11 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Auth() {
   const [authType, setAuthType] = useState("");
   const { userEmail, setUserEmail } = useState("");
+  const navigate = useNavigate();
 
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
@@ -29,6 +31,7 @@ export default function Auth() {
   const onShopperSignUpClick = () => {
     setAuthType("shopper");
     login();
+    navigate("/items");
   };
 
   return (
