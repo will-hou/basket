@@ -42,6 +42,7 @@ const ItemDetailView = (props) => {
   };
 
   useEffect(() => {
+    getProgress();
     setStartingProgress(cart.has(state.itemName) ? newProgress : 0.5);
   }, [state, cart]);
 
