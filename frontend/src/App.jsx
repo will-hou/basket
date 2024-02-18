@@ -8,13 +8,13 @@ function App() {
       <p className="text-center mt-2 mb-8 text-base font-body font-semibold text-black/40">
         <img className="inline h-4 opacity-50" src={vercel_logo} /> for farmers
       </p>
-      <div className="text-start text-2xl font-body mx-10 p-4 border bg-white/70 rounded-2xl drop-shadow-md">
-        <div className="text-start mb-4">Existing Users</div>
+      <div className="text-center text-2xl font-body mx-10 p-4 border bg-white/70 rounded-2xl drop-shadow-md">
+        <div className=" mb-4">Existing Users</div>
         <button className="bg-primary font-body text-lg text-white active:bg-primary/80 px-4 py-2 rounded-2xl">
           Log In
         </button>
-        <div className="text-start mt-8">Create an Account</div>
-        <div className="text-start mb-4 text-base text-black/30">
+        <div className=" mt-8">Create an Account</div>
+        <div className=" mb-4 text-base text-black/30">
           Select an account type
         </div>
         <div className="flex flex-row">
