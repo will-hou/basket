@@ -9,6 +9,7 @@ export default function Auth() {
   const [userAddress, setUserAddress] = useState("");
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
+  const [readyToNavigate, setReadyToNavigate] = useState(false);
 
   const getEmail = async (accessToken) => {
     console.log("Access Token: ", accessToken);
@@ -36,6 +37,8 @@ export default function Auth() {
     onSuccess: (codeResponse) => {
       getEmail(codeResponse.access_token);
 
+      navigate("/items");
+
       // set the user email to codeResponse.email
       fetch(BACKEND_HOST + "/createuser", {
         method: "POST",
@@ -62,7 +65,6 @@ export default function Auth() {
   const onLoginClick = () => {
     setAuthType("login");
     login();
-    navigate("/items");
   };
 
   const onFarmerSignUpClick = () => {
@@ -78,7 +80,6 @@ export default function Auth() {
   const onModalSubmit = () => {
     setShowModal(false);
     login();
-    navigate("/items");
   };
 
   return (
@@ -115,11 +116,11 @@ export default function Auth() {
       )}
       <div
         className={showModal ? "opacity-30" : ""}
-        // onClick={(event) => {
-        //   if (event.target === event.currentTarget) {
-        //     setShowModal(false);
-        //   }
-        // }}
+      // onClick={(event) => {
+      //   if (event.target === event.currentTarget) {
+      //     setShowModal(false);
+      //   }
+      // }}
       >
         <div className=" mb-4">Existing Users</div>
         <button

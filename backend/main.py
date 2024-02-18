@@ -95,11 +95,11 @@ def getorder(email: str = Query(...)):
 def listitems():
     conn = connect()
     with conn.cursor() as cur:
-        cur.execute('SELECT id, name, farm_id, price, image FROM items;')
+        cur.execute('SELECT i.id as item_id, i.farm_id as farm_id, i.name as item_name, i.price as item_price, i.image as item_image, f.name as farm_name, f.image as farm_image, f.owner_id as seller FROM items i LEFT JOIN farms f ON i.farm_id = f.id;')
         resultlist = []
         for item in cur:
             result = {}
-            for key, val in zip(('id', 'name', 'farm_id', 'price', 'image'), item):
+            for key, val in zip(('item_id', 'farm_id', 'item_name', 'item_price', 'item_image', 'farm_name', 'farm_image', 'seller'), item):
                 result[key] = val
             resultlist.append(result)
         conn.close()
