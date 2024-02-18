@@ -5,10 +5,10 @@ export default {
     extend: {
       colors: {
         primary: "#344e41",
-        background: "#fefae0",
         secondary: "#588157",
-        tertiary: "#A3818a",
-        warning: "a3818a",
+        tertiary: "#a3B18a",
+        warning: "#BC4749",
+        background: "#fefae0",
       },
       fontFamily: {
         display: ["Comfortaa"],
